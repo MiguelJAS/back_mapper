@@ -4,9 +4,12 @@ import com.InmoCarlosIII.InmoCarlosIII.Dto.PropiedadDTO;
 import com.InmoCarlosIII.InmoCarlosIII.Entities.Propiedad;
 import com.InmoCarlosIII.InmoCarlosIII.Mapper.PropiedadMapper;
 import com.InmoCarlosIII.InmoCarlosIII.Repositories.PropiedadRepository;
+import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,6 +22,8 @@ public class PropiedadService {
 
     @Autowired
     private PropiedadMapper propiedadMapper;
+    private final Faker faker = new Faker();
+
 
     public PropiedadDTO createPropiedad(PropiedadDTO propiedadDTO) {
         Propiedad propiedad = propiedadMapper.toEntity(propiedadDTO);
@@ -52,4 +57,29 @@ public class PropiedadService {
     public void deletePropiedad(Long id) {
         propiedadRepository.deleteById(id);
     }
+
+    public void generarDatosFicticios(int cantidad) {
+        List<PropiedadDTO> propiedadesFicticias = new ArrayList<>();
+
+        for (int i = 0; i < cantidad; i++) {
+            PropiedadDTO propiedad = new PropiedadDTO();
+            propiedad.setProvincia(faker.address().state());
+            propiedad.setMunicipio(faker.address().city());
+            propiedad.setDireccion(faker.address().streetAddress());
+            propiedad.setPrecio(faker.number().randomDouble(2, 100000, 1000000));
+            propiedad.setTipo(faker.lorem().word());
+            propiedad.setHabitaciones(String.valueOf(faker.number().numberBetween(1, 6)));
+            propiedad.setBanyos(String.valueOf(faker.number().numberBetween(1, 4)));
+            propiedad.setSuperficie(String.valueOf(faker.number().numberBetween(50, 200)));
+            propiedad.setEstado(faker.lorem().word());
+            propiedad.setImagenes(faker.lorem().sentence());
+            propiedad.setDescripcion(faker.lorem().paragraph());
+
+            propiedadesFicticias.add(propiedad);
+        }
+
+        List<Propiedad> propiedadesGuardadas = propiedadRepository.saveAll(propiedadMapper.toEntities(propiedadesFicticias));
+        // Puedes realizar otras operaciones con las propiedades guardadas, si es necesario
+    }
+
 }

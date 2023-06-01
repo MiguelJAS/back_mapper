@@ -15,6 +15,8 @@ public class UsuarioDTO {
     private String nombre;
 
     @NotNull
+    private String apellidos;
+    @NotNull
     private String clave;
 
     @NotNull

@@ -5,8 +5,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
@@ -21,6 +19,9 @@ public class Usuario {
     @NotNull
     @Column(name = "nombre", nullable = false)
     private  String nombre;
+    @NotNull
+    @Column(name = "apellidos", nullable = false)
+    private  String apellidos;
     @NotNull
     @Email
     @Column(name = "email", nullable = false)
