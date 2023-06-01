@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/propiedades")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/api/propiedades")
 public class PropiedadController {
 
     @Autowired
@@ -50,5 +51,11 @@ public class PropiedadController {
     public ResponseEntity<Void> deletePropiedad(@PathVariable Long id) {
         propiedadService.deletePropiedad(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/generarDatos/{cantidad}")
+    public String generarDatosFicticios(@PathVariable int cantidad) {
+        propiedadService.generarDatosFicticios(cantidad);
+        return "Datos ficticios generados exitosamente.";
     }
 }
