@@ -4,6 +4,7 @@ import com.InmoCarlosIII.InmoCarlosIII.Dto.PropiedadDTO;
 import com.InmoCarlosIII.InmoCarlosIII.Services.PropiedadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +23,22 @@ public class PropiedadController {
         return ResponseEntity.ok(createdPropiedad);
     }
 
+
     @GetMapping
-    public ResponseEntity<List<PropiedadDTO>> getAllPropiedades() {
-        List<PropiedadDTO> propiedades = propiedadService.getAllPropiedades();
+    public ResponseEntity<List<PropiedadDTO>> getAllPropiedades(
+            @RequestParam(required = false) String municipio,
+            @RequestParam(required = false) Integer habitaciones) {
+
+        List<PropiedadDTO> propiedades;
+
+        if (!StringUtils.isEmpty(municipio)) {
+            propiedades = propiedadService.getPropiedadesByMunicipio(municipio);
+        } else if (habitaciones != null) {
+            propiedades = propiedadService.getPropiedadesByHabitaciones(habitaciones);
+        } else {
+            propiedades = propiedadService.getAllPropiedades();
+        }
+
         return ResponseEntity.ok(propiedades);
     }
 
