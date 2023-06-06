@@ -37,6 +37,29 @@ public class PropiedadService {
                 .collect(Collectors.toList());
     }
 
+    public List<PropiedadDTO> getPropiedadesByMunicipio(String municipio) {
+        List<Propiedad> propiedadesByMunicipio = propiedadRepository.findAll()
+                .stream()
+                .filter(propiedad -> propiedad.getMunicipio().equalsIgnoreCase(municipio))
+                .collect(Collectors.toList());
+
+        return propiedadesByMunicipio.stream()
+                .map(propiedadMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<PropiedadDTO> getPropiedadesByHabitaciones(int habitaciones) {
+        List<Propiedad> propiedadesByHabitaciones = propiedadRepository.findAll()
+                .stream()
+                .filter(propiedad -> propiedad.getHabitaciones().equals(String.valueOf(habitaciones)))
+                .collect(Collectors.toList());
+
+        return propiedadesByHabitaciones.stream()
+                .map(propiedadMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+
     public PropiedadDTO getPropiedadById(Long id) {
         Optional<Propiedad> optionalPropiedad = propiedadRepository.findById(id);
         return optionalPropiedad.map(propiedadMapper::toDTO).orElse(null);
