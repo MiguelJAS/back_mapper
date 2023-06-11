@@ -11,6 +11,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "contratos")
 public class Contrato {
 
     @Id
@@ -27,4 +28,11 @@ public class Contrato {
     private String precio;
     @Column
     private String detalles;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+    @OneToOne
+    @JoinColumn(name = "propiedad_id")
+    private Propiedad propiedad;
 }
