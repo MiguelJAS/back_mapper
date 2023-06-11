@@ -36,8 +36,8 @@ public class Usuario {
     @Column(name = "telefono", nullable = false)
     private String telefono;
     @NotNull
-    @Column( nullable = false)
-    private boolean isAdmin;
+    @Column(name = "administrador", nullable = false)
+    private boolean admin;
 
     //Relaciones
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
