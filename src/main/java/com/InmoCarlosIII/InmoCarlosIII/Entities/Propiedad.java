@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "propiedades")
 public class Propiedad {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,4 +37,12 @@ public class Propiedad {
     private String imagenes;
     @Column
     private String descripcion;
+
+    //Relaciones
+    @ManyToOne
+    @JoinColumn(name = "propietario_id")
+    private Usuario usuario;
+
+    @OneToOne(mappedBy = "propiedad")
+    private  Contrato contrato;
 }
