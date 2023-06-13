@@ -26,6 +26,9 @@ public class Usuario {
     @Column(name = "apellidos", nullable = false)
     private  String apellidos;
     @NotNull
+    @Column(name = "usuario", nullable = false)
+    private  String username;
+    @NotNull
     @Email
     @Column(name = "email", nullable = false)
     private String email;
