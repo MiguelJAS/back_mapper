@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/contratos")
 public class ContratoController {
@@ -46,9 +47,14 @@ public class ContratoController {
         return ResponseEntity.ok(updatedContrato);
     }
 
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteContrato(@PathVariable Long id) {
-        contratoService.deleteContrato(id);
-        return ResponseEntity.ok().build();
+        try {
+            contratoService.deleteContrato(id);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
