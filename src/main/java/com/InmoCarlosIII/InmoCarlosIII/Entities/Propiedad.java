@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -33,8 +35,10 @@ public class Propiedad {
     private String superficie;
     @Column
     private String estado;
-    @Column
-    private String imagenes;
+    @ElementCollection
+    @CollectionTable(name = "propiedad_imagenes")
+    @Column(name = "imagenes")
+    private List<String> imagenes;
     @Column
     private String descripcion;
 
@@ -45,4 +49,12 @@ public class Propiedad {
 
     @OneToOne(mappedBy = "propiedad")
     private  Contrato contrato;
+
+    public List<String> getImagenes() {
+        return imagenes;
+    }
+
+    public void setImagenes(List<String> imagenes) {
+        this.imagenes = imagenes;
+    }
 }
