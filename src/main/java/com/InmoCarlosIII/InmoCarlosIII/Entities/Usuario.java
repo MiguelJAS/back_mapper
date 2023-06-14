@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,5 +49,15 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contrato> contrato = new ArrayList<>();
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+
+        this.clave = new BCryptPasswordEncoder().encode(clave);
+    }
+
 
 }
