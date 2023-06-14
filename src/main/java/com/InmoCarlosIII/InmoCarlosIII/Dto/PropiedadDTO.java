@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,7 +31,7 @@ public class PropiedadDTO {
 
     private String estado;
 
-    private String imagenes;
+    private List<String> imagenes;
 
     private String descripcion;
 

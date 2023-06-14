@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+
+
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -76,7 +80,6 @@ public class PropiedadService {
         Propiedad updatedPropiedad = propiedadRepository.save(propiedad);
         return propiedadMapper.toDTO(updatedPropiedad);
     }
-
     public void deletePropiedad(Long id) {
         propiedadRepository.deleteById(id);
     }
@@ -84,18 +87,29 @@ public class PropiedadService {
     public void generarDatosFicticios(int cantidad) {
         List<PropiedadDTO> propiedadesFicticias = new ArrayList<>();
 
+        Faker faker = new Faker();
+
         for (int i = 0; i < cantidad; i++) {
             PropiedadDTO propiedad = new PropiedadDTO();
             propiedad.setProvincia(faker.address().state());
             propiedad.setMunicipio(faker.address().city());
             propiedad.setDireccion(faker.address().streetAddress());
-            propiedad.setPrecio(faker.number().randomDouble(2, 100000, 1000000));
+            propiedad.setPrecio(faker.number().randomDouble(0, 100000, 1000000));
             propiedad.setTipo(faker.lorem().word());
             propiedad.setHabitaciones(String.valueOf(faker.number().numberBetween(1, 6)));
             propiedad.setBanyos(String.valueOf(faker.number().numberBetween(1, 4)));
             propiedad.setSuperficie(String.valueOf(faker.number().numberBetween(50, 200)));
             propiedad.setEstado(faker.lorem().word());
-            propiedad.setImagenes(faker.lorem().sentence());
+
+            // Generar URLs ficticias de imágenes
+            List<String> imagenes = new ArrayList<>();
+            for (int j = 0; j < 3; j++) {
+                String imageUrl = "https://via.placeholder.com/500x500"; // URL ficticia de imagen
+                imagenes.add(imageUrl);
+            }
+
+            propiedad.setImagenes(imagenes);
+
             propiedad.setDescripcion(faker.lorem().paragraph());
 
             propiedadesFicticias.add(propiedad);
@@ -104,5 +118,6 @@ public class PropiedadService {
         List<Propiedad> propiedadesGuardadas = propiedadRepository.saveAll(propiedadMapper.toEntities(propiedadesFicticias));
         // Puedes realizar otras operaciones con las propiedades guardadas, si es necesario
     }
+
 
 }
