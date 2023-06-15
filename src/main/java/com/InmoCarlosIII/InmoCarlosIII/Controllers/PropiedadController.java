@@ -25,20 +25,9 @@ public class PropiedadController {
 
 
     @GetMapping
-    public ResponseEntity<List<PropiedadDTO>> getAllPropiedades(
-            @RequestParam(required = false) String municipio,
-            @RequestParam(required = false) Integer habitaciones) {
-
+    public ResponseEntity<List<PropiedadDTO>> getAllPropiedades() {
         List<PropiedadDTO> propiedades;
-
-        if (!StringUtils.isEmpty(municipio)) {
-            propiedades = propiedadService.getPropiedadesByMunicipio(municipio);
-        } else if (habitaciones != null) {
-            propiedades = propiedadService.getPropiedadesByHabitaciones(habitaciones);
-        } else {
-            propiedades = propiedadService.getAllPropiedades();
-        }
-
+        propiedades = propiedadService.getAllPropiedades();
         return ResponseEntity.ok(propiedades);
     }
 
