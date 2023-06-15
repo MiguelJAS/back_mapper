@@ -19,15 +19,15 @@ public class PropiedadDTO {
 
     private String direccion;
 
-    private Double precio;
+    private int precio;
 
     private String tipo;
 
-    private String habitaciones;
+    private int habitaciones;
 
-    private String banyos;
+    private int banyos;
 
-    private String superficie;
+    private int superficie;
 
     private String estado;
 

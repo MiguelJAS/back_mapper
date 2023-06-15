@@ -24,15 +24,15 @@ public class Propiedad {
     @Column
     private String direccion;
     @Column
-    private Double precio;
+    private int precio;
     @Column
     private String tipo;
     @Column
-    private String habitaciones;
+    private int habitaciones;
     @Column
-    private String banyos;
+    private int banyos;
     @Column
-    private String superficie;
+    private int superficie;
     @Column
     private String estado;
     @ElementCollection

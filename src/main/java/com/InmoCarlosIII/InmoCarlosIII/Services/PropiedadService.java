@@ -8,8 +8,9 @@ import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 
 
@@ -51,11 +52,10 @@ public class PropiedadService {
                 .map(propiedadMapper::toDTO)
                 .collect(Collectors.toList());
     }
-
     public List<PropiedadDTO> getPropiedadesByHabitaciones(int habitaciones) {
         List<Propiedad> propiedadesByHabitaciones = propiedadRepository.findAll()
                 .stream()
-                .filter(propiedad -> propiedad.getHabitaciones().equals(String.valueOf(habitaciones)))
+                .filter(propiedad -> propiedad.getHabitaciones() == habitaciones)
                 .collect(Collectors.toList());
 
         return propiedadesByHabitaciones.stream()
@@ -94,11 +94,11 @@ public class PropiedadService {
             propiedad.setProvincia(faker.address().state());
             propiedad.setMunicipio(faker.address().city());
             propiedad.setDireccion(faker.address().streetAddress());
-            propiedad.setPrecio(faker.number().randomDouble(0, 100000, 1000000));
-            propiedad.setTipo(faker.lorem().word());
-            propiedad.setHabitaciones(String.valueOf(faker.number().numberBetween(1, 6)));
-            propiedad.setBanyos(String.valueOf(faker.number().numberBetween(1, 4)));
-            propiedad.setSuperficie(String.valueOf(faker.number().numberBetween(50, 200)));
+            propiedad.setPrecio(Math.round(faker.number().numberBetween(100000, 1000000)) / 1000);
+            propiedad.setTipo(faker.options().option("piso", "apartamento", "chalet", "duplex"));
+            propiedad.setHabitaciones(faker.number().numberBetween(1, 6));
+            propiedad.setBanyos(faker.number().numberBetween(1, 4));
+            propiedad.setSuperficie(faker.number().numberBetween(50, 200));
             propiedad.setEstado(faker.lorem().word());
 
             // Generar URLs ficticias de imágenes
@@ -118,6 +118,7 @@ public class PropiedadService {
         List<Propiedad> propiedadesGuardadas = propiedadRepository.saveAll(propiedadMapper.toEntities(propiedadesFicticias));
         // Puedes realizar otras operaciones con las propiedades guardadas, si es necesario
     }
+
 
 
 }
