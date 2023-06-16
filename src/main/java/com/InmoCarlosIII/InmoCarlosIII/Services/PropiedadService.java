@@ -241,7 +241,17 @@ public class PropiedadService {
 
             propiedad.setImagenes(arrayImagenes);
 
-            propiedad.setDescripcion("Hermosa vivienda nueva en el centro de " + propiedad.getMunicipio() + " con " + propiedad.getHabitaciones() + " habitaciones y " + propiedad.getBanyos() + " baños");
+            String habitacionSP = "habitaciones";
+            String banyoSP = "baños";
+            if (propiedad.getHabitaciones() == 1) {
+                habitacionSP = "habitación";
+            }
+
+            if (propiedad.getBanyos() == 1) {
+                banyoSP = "baño";
+            }
+
+            propiedad.setDescripcion("Hermosa vivienda nueva en el centro de " + propiedad.getMunicipio() + " con " + propiedad.getHabitaciones() + " " + habitacionSP + " y " + propiedad.getBanyos() + " " + banyoSP);
 
             propiedadesFicticias.add(propiedad);
         }
