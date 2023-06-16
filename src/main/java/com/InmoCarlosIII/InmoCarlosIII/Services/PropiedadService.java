@@ -73,7 +73,7 @@ public class PropiedadService {
             propiedad.setProvincia(faker.address().state());
             propiedad.setMunicipio(faker.address().city());
             propiedad.setDireccion(faker.address().streetAddress());
-            propiedad.setPrecio(Math.round(faker.number().numberBetween(100000, 1000000) / 1000)* 1000);
+            propiedad.setPrecio(Math.round(faker.number().numberBetween(50000, 2000000) / 1000)* 1000);
             propiedad.setTipo(faker.options().option("Piso", "Apartamento", "Chalet", "Dúplex"));
             propiedad.setHabitaciones(faker.number().numberBetween(1, 6));
             propiedad.setBanyos(faker.number().numberBetween(1, 4));
