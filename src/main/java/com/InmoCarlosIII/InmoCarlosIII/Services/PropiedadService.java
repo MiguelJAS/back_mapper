@@ -36,9 +36,34 @@ public class PropiedadService {
 
     public PropiedadDTO createPropiedad(PropiedadDTO propiedadDTO) {
         Propiedad propiedad = propiedadMapper.toEntity(propiedadDTO);
+
+        // Obtener las URLs de las imágenes desde el DTO
+        List<String> imagenesUrls = propiedadDTO.getImagenes();
+
+        // Crear una lista para almacenar las imágenes
+        List<String> imagenes = new ArrayList<>();
+
+        // Recorrer las URLs de las imágenes y agregarlas a la lista (solo si hay menos de tres imágenes)
+        for (String imageUrl : imagenesUrls) {
+            // Aquí puedes realizar cualquier lógica adicional, como descargar las imágenes o validar las URLs
+            if (imagenes.size() < 3) {
+                imagenes.add(imageUrl);
+            } else {
+                break; // Detener el bucle si ya se han agregado tres imágenes
+            }
+        }
+
+        // Establecer la lista de imágenes en la entidad propiedad
+        propiedad.setImagenes(imagenes);
+
+        // Guardar la entidad propiedad
         Propiedad savedPropiedad = propiedadRepository.save(propiedad);
+
         return propiedadMapper.toDTO(savedPropiedad);
     }
+
+
+
 
     public Page<PropiedadDTO> getAllPropiedades(Pageable pageable) {
         return propiedadRepository.findAll(pageable).map(propiedadMapper::toDTO);

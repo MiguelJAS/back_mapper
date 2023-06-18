@@ -4,13 +4,11 @@ import com.InmoCarlosIII.InmoCarlosIII.Dto.PropiedadDTO;
 import com.InmoCarlosIII.InmoCarlosIII.Services.PropiedadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -21,10 +19,13 @@ public class PropiedadController {
     private PropiedadService propiedadService;
 
     @PostMapping
-    public ResponseEntity<PropiedadDTO> createPropiedad(@RequestBody PropiedadDTO propiedadDTO) {
+    public ResponseEntity<PropiedadDTO> createPropiedad(PropiedadDTO propiedadDTO) {
+        // Llamar al servicio para crear la propiedad y procesar las imágenes
         PropiedadDTO createdPropiedad = propiedadService.createPropiedad(propiedadDTO);
+
         return ResponseEntity.ok(createdPropiedad);
     }
+
 
     @GetMapping
     public ResponseEntity<Page<PropiedadDTO>> getAllPropiedades(Pageable pageable) {
@@ -32,6 +33,7 @@ public class PropiedadController {
         propiedades = propiedadService.getAllPropiedades(pageable);
         return ResponseEntity.ok(propiedades);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<PropiedadDTO> getPropiedadById(@PathVariable Long id) {
