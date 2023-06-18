@@ -38,7 +38,7 @@ private final JWTAuthorizationFilter jwtAuthorizationFilter;
         return http.csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/propiedades", "/api/usuarios", "/api/propiedades/*")
+                .requestMatchers("/api/propiedades", "/api/usuarios", "/api/propiedades/*", "api/usuarios/*")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

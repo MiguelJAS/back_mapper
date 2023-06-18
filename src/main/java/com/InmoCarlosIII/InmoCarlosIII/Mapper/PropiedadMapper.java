@@ -3,11 +3,11 @@ package com.InmoCarlosIII.InmoCarlosIII.Mapper;
 import com.InmoCarlosIII.InmoCarlosIII.Dto.PropiedadDTO;
 import com.InmoCarlosIII.InmoCarlosIII.Entities.Propiedad;
 import org.mapstruct.Mapper;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-
 public interface PropiedadMapper {
     Propiedad toEntity(PropiedadDTO propiedadDTO);
 

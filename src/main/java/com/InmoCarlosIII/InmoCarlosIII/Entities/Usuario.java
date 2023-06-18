@@ -15,7 +15,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:3001")
 @Table(name = "usuarios")
 public class Usuario {
 
