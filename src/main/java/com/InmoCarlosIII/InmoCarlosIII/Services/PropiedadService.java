@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 
 import java.util.ArrayList;
@@ -38,10 +40,8 @@ public class PropiedadService {
         return propiedadMapper.toDTO(savedPropiedad);
     }
 
-    public List<PropiedadDTO> getAllPropiedades() {
-        return propiedadRepository.findAll().stream()
-                .map(propiedadMapper::toDTO)
-                .collect(Collectors.toList());
+    public Page<PropiedadDTO> getAllPropiedades(Pageable pageable) {
+        return propiedadRepository.findAll(pageable).map(propiedadMapper::toDTO);
     }
     public PropiedadDTO getPropiedadById(Long id) {
         Optional<Propiedad> optionalPropiedad = propiedadRepository.findById(id);

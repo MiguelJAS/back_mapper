@@ -7,6 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 @RestController
@@ -23,11 +26,10 @@ public class PropiedadController {
         return ResponseEntity.ok(createdPropiedad);
     }
 
-
     @GetMapping
-    public ResponseEntity<List<PropiedadDTO>> getAllPropiedades() {
-        List<PropiedadDTO> propiedades;
-        propiedades = propiedadService.getAllPropiedades();
+    public ResponseEntity<Page<PropiedadDTO>> getAllPropiedades(Pageable pageable) {
+        Page<PropiedadDTO> propiedades;
+        propiedades = propiedadService.getAllPropiedades(pageable);
         return ResponseEntity.ok(propiedades);
     }
 
